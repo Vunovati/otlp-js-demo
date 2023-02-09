@@ -1,0 +1,33 @@
+{
+  "name": "otlp-demo-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "proxy-cors-otlp": "npx local-cors-proxy --proxyUrl http://localhost:4318"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.4.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.35.1",
+    "@opentelemetry/instrumentation": "^0.35.1",
+    "@opentelemetry/resources": "^1.9.1",
+    "@opentelemetry/sdk-trace-base": "^1.9.1",
+    "@opentelemetry/sdk-trace-web": "^1.9.1",
+    "@opentelemetry/semantic-conventions": "^1.9.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "prettier": "2.8.4",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.1.0"
+  }
+}
