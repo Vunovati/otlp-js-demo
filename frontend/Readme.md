@@ -27,5 +27,4 @@ Run the app with:
 
 TODO:
 
-- make a fetch to backend
 - make a form with some data to send
