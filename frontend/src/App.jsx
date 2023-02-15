@@ -13,7 +13,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="text-4xl font-italic">Hello world!</h1>
       <div className="card">
         <button
           onClick={() => {
