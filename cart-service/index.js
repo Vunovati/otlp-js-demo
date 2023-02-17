@@ -3,11 +3,6 @@ const fastify = require('fastify')({
   logger: true
 })
 
-fastify.get('/', async (request, reply) => {
-  console.log(`Headers received: ${JSON.stringify(request.headers, null, 2)}`)
-  return { hello: 'opentelemetry' }
-})
-
 const allProducts = [
   {
     id: 1,
@@ -57,7 +52,7 @@ const allProducts = [
 ]
 
 // TODO: get allProducts from another service
-fastify.get('/api/products', async (request, reply) => {
+fastify.get('/api/products', async (_request, reply) => {
   reply.send(allProducts)
 })
 
