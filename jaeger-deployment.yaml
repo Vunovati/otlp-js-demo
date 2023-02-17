@@ -14,25 +14,25 @@ spec:
       labels:
         app: jaeger
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "14269"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '14269'
     spec:
       containers:
         - name: jaeger
-          image: "docker.io/jaegertracing/all-in-one:1.42"
+          image: 'docker.io/jaegertracing/all-in-one:1.42'
           env:
             - name: BADGER_EPHEMERAL
-              value: "false"
+              value: 'false'
             - name: SPAN_STORAGE_TYPE
-              value: "badger"
+              value: 'badger'
             - name: BADGER_DIRECTORY_VALUE
-              value: "/badger/data"
+              value: '/badger/data'
             - name: BADGER_DIRECTORY_KEY
-              value: "/badger/key"
+              value: '/badger/key'
             - name: COLLECTOR_OTLP_ENABLED
-              value: "true"
+              value: 'true'
             - name: MEMORY_MAX_TRACES
-              value: "50000"
+              value: '50000'
             - name: QUERY_BASE_PATH
               value: /jaeger
           livenessProbe:
@@ -85,20 +85,19 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: jaeger-collector-http
-    port: 14268
-    targetPort: 14268
-    protocol: TCP
-  - name: jaeger-collector-grpc
-    port: 14250
-    targetPort: 14250
-    protocol: TCP
-  - port: 4317
-    targetPort: 4317
-    name: otlp-grpc
-  - port: 4318
-    targetPort: 4318
-    name: otlp-http
+    - name: jaeger-collector-http
+      port: 14268
+      targetPort: 14268
+      protocol: TCP
+    - name: jaeger-collector-grpc
+      port: 14250
+      targetPort: 14250
+      protocol: TCP
+    - port: 4317
+      targetPort: 4317
+      name: otlp-grpc
+    - port: 4318
+      targetPort: 4318
+      name: otlp-http
   selector:
     app: jaeger
-

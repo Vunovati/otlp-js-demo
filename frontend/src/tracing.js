@@ -3,9 +3,9 @@ import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
 import { WebTracerProvider } from "@opentelemetry/sdk-trace-web";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 // We need this for XMLHttpRequest, axios etc.
-import { XMLHttpRequestInstrumentation } from '@opentelemetry/instrumentation-xml-http-request';
+import { XMLHttpRequestInstrumentation } from "@opentelemetry/instrumentation-xml-http-request";
 // For async contexts
-import { ZoneContextManager } from '@opentelemetry/context-zone';
+import { ZoneContextManager } from "@opentelemetry/context-zone";
 import {
   ConsoleSpanExporter,
   SimpleSpanProcessor,
@@ -19,9 +19,14 @@ registerInstrumentations({
     new XMLHttpRequestInstrumentation({
       // These are the urls we propagate the trace headers to - E.G our backend, it is best to use a regexp
       // The header sent is traceparent: 00-7755276766ab4b59f7dd8ef0d96b66e5-7334fe7ecb859bc5-01
-      propagateTraceHeaderCorsUrls: ['http://localhost:8090', 'https://api.github.com', /https:\/\/api.github.com\.*/, /http:\/\/localhost:3000\.*/]
+      propagateTraceHeaderCorsUrls: [
+        "http://localhost:8090",
+        "https://api.github.com",
+        /https:\/\/api.github.com\.*/,
+        /http:\/\/localhost:3000\.*/,
+      ],
     }),
-],
+  ],
 });
 
 const resource = Resource.default().merge(

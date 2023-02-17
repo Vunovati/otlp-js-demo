@@ -1,0 +1,27 @@
+{
+  "name": "otlp-js-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vunovati/otlp-js-demo.git"
+  },
+  "workspaces": [
+    "frontend",
+    "cart-service"
+  ],
+  "author": "Vladimir Adamic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vunovati/otlp-js-demo/issues"
+  },
+  "homepage": "https://github.com/Vunovati/otlp-js-demo#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "prettier": "^2.8.4"
+  }
+}
