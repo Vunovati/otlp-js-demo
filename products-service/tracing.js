@@ -18,7 +18,7 @@ const {
 const traceExporter = new OTLPTraceExporter()
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: 'Cart Service'
+    [SemanticResourceAttributes.SERVICE_NAME]: 'Products Service'
   }),
   traceExporter,
   instrumentations: [getNodeAutoInstrumentations()]

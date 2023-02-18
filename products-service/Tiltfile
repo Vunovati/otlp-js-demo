@@ -1,0 +1,10 @@
+k8s_yaml('k8s-deployment.yaml')
+k8s_resource('backend-app', port_forwards=3000)
+
+docker_build('backend-app-image', '.',
+    build_args={'node_env': 'development'},
+    entrypoint='node --watch -r "./tracing.js" index.js',
+    live_update=[
+    sync('.', '/app'),
+        run('cd /app && npm install', trigger=['./package.json', './package-lock.json']),
+])

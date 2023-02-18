@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+  labels:
+    app: backend-app
+spec:
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+        - name: backend-app
+          image: backend-app-image
+          ports:
+            - containerPort: 3000
+      env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: 'http://jaeger-collector.default.svc.cluster.local:4318'

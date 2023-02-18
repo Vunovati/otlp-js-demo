@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "frontend",
-    "cart-service"
+    "cart-service",
+    "products-service"
   ],
   "author": "Vladimir Adamic",
   "license": "ISC",

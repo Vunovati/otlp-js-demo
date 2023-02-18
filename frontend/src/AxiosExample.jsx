@@ -9,6 +9,8 @@ import React, { useState } from "react";
 import ProductList from "./ProductList";
 import Cart from "./Cart";
 
+const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
+
 const queryClient = new QueryClient();
 
 export default function AxiosExample() {
@@ -21,19 +23,19 @@ export default function AxiosExample() {
 
 function Example() {
   const { data: products } = useQuery("products", () =>
-    axios.get("http://localhost:3000/api/products").then((res) => res.data)
+    axios.get(VITE_PRODUCTS_SERVICE_URL).then((res) => res.data)
   );
 
   const { data: cart } = useQuery("cart", () =>
     axios
-      .get("http://localhost:3000/api/cart/demo-cart")
+      .get(VITE_CART_SERVICE_URL)
       .then((res) => res.data)
   );
 
   const { mutate: updateCart } = useMutation({
     mutationFn: (cartState) =>
       axios
-        .post("http://localhost:3000/api/cart/demo-cart", cartState)
+        .post(VITE_CART_SERVICE_URL, cartState)
         .then((res) => res.data),
     onSuccess: (data) => {
       queryClient.setQueryData(["cart"], data);
