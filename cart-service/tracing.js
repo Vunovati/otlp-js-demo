@@ -2,10 +2,11 @@
 
 const process = require('process')
 const opentelemetry = require('@opentelemetry/sdk-node')
+const { HttpInstrumentation } = require('@opentelemetry/instrumentation-http')
+const { PinoInstrumentation } = require('@opentelemetry/instrumentation-pino')
 const {
-  getNodeAutoInstrumentations
-} = require('@opentelemetry/auto-instrumentations-node')
-const { ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-base')
+  FastifyInstrumentation
+} = require('@opentelemetry/instrumentation-fastify')
 const { Resource } = require('@opentelemetry/resources')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
 const {
@@ -16,12 +17,19 @@ const {
 // enable all auto-instrumentations from the meta package
 // const traceExporter = new ConsoleSpanExporter();
 const traceExporter = new OTLPTraceExporter()
+
+const instrumentations = [
+  new HttpInstrumentation({ ignoreIncomingPaths: ['/healthcheck'] }),
+  new FastifyInstrumentation(),
+  new PinoInstrumentation()
+]
+
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: 'Cart Service'
   }),
   traceExporter,
-  instrumentations: [getNodeAutoInstrumentations()]
+  instrumentations
 })
 
 // initialize the SDK and register with the OpenTelemetry API
