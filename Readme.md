@@ -172,6 +172,12 @@ Our node images can then be created from that image.
 ### Useful env vars used by OTLP SDKs
 `OTEL_SERVICE_NAME` - set the service name in the spans
 
+Spec for all SDK env vars:
+https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/sdk-environment-variables.md
+
+Env vars for Exporter:
+https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/exporter.md
+
 
 ### Testing the traced code
 We can use inMemoryExporter to test if our code tracing is working as expected.
