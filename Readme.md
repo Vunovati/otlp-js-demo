@@ -1,4 +1,4 @@
-#Full stack js tracing with OpenTelemetry
+#Fullstack js tracing with OpenTelemetry
 
 Observing and debugging distributed systems is hard. We are going to talk about tracing here.
 
@@ -192,3 +192,11 @@ Update the standard bug-handling process to include not only writing new tests t
 [Distributed Tracing in Practice](https://www.oreilly.com/library/view/distributed-tracing-in/9781492056621/)
 [Instrumentation Checklist](https://github.com/distributed-tracing-in-practice/instrumentation-checklist/blob/master/checklist.md)
 If you have time: [OpenTelemetry Bootcamp by Aspecto](https://www.aspecto.io/opentelemetry-bootcamp)
+
+
+# Running the examples
+1. Install, [Docker Desktop](https://docs.docker.com/desktop/), Tilt.
+2. [Enable Kubernetes in Docker](https://docs.docker.com/desktop/kubernetes/#enable-kubernetes)
+3. `Tilt up`
+4. `npx local-cors-proxy --proxyUrl http://localhost:4318`
+
