@@ -1,7 +1,7 @@
 k8s_yaml('jaeger-deployment.yaml')
 # include('./frontend/Tiltfile')
 # include('./backend/Tiltfile')
-k8s_resource('jaeger', port_forwards=16686)
+k8s_resource('jaeger', port_forwards=[16686, 4318])
 
 
 # CART
