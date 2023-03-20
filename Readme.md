@@ -148,12 +148,49 @@ Node-fetch, which is based on undici does not work (yet?). Only the old stuff wo
 
 We should control the amount of data traced from our env vars.
 
+#### Exporters
+In our examples, we use OTLPTraceExporter from '@opentelemetry/exporter-trace-otlp-http'. It will send the spans to an endpoint
+configured in OTEL_EXPORTER_OTLP_ENDPOINT env var.
+This works great in local environment or when the OTLP collector is self-managed and is collocated with the apps in the same network or cluster.
 
+If we want to use an external, managed OTLP backend and collectors such as Dynatrace or Google Cloud Trace we usually need to check their docs on how to set up the exporter. 
+
+#####  Google Cloud Trace
+GCT Trace Exporter will handle Collector urls and authentication automatically.
+https://cloud.google.com/trace/docs/setup/nodejs-ot
+
+```
+const {
+  TraceExporter,
+} = require("@google-cloud/opentelemetry-cloud-trace-exporter");
+```
+
+##### Dynatrace
+Requires either using DynaTrace agent or configuring the OTLPTraceExporter
+
+```
+const otlpExporter = new OTLPTraceExporter({
+  url: '<URL>', //TODO Replace <URL> to your SaaS/Managed-URL as mentioned in the next step
+  headers: {
+        Authorization: 'Api-Token <TOKEN>' //TODO Replace <TOKEN> with your API Token as mentioned in the next step
+  },
+});
+```
 
 
 
 TODO:
-Investigate how to run ./tracing.js with ESM modules. There is an [open issue in OTLP js](https://github.com/open-telemetry/opentelemetry-js/issues/1946) 
+
+#### ESM modules 
+The JS language has no APIs for instrumentation like e.g. java or .NET so we end up in monkey patching. ESM modules can't be monkey-patched in the same way that CommonJS can via [require-in-the-middle](https://github.com/elastic/require-in-the-middle).
+It could be fixed with [ESM loaders](https://nodejs.org/api/esm.html#esm_loaders) and [import-in-the-middle](https://github.com/DataDog/import-in-the-middle).
+The PR to enable this is [stuck](https://github.com/open-telemetry/opentelemetry-js/pull/2846).
+
+Instead of monkey patching, another way around it is to use the framework plugins for Open Telemetry.
+Also some libs provide [diagnostics_channel events](https://nodejs.org/api/diagnostics_channel.html#diagnostics-channel) that can be used to create spans.
+
+[open issue in OTLP js](https://github.com/open-telemetry/opentelemetry-js/issues/1946) 
+[Good summation of the current state of the problem.](https://github.com/open-telemetry/opentelemetry-js/issues/1946#issuecomment-1295493673)
 
 ##### Idea, Black-box like instrumentation in Node.js
 The app can be instrumented with the SDK without dev engagement. 
@@ -161,7 +198,7 @@ Not really a novel idea, That's what many APMs do for node.js instrumentation.
 The general idea is to patch the Node.js require (Module.prototype.require) function, and then the SDK can initialise itself.
 The devs are unaware of that until they see the agent mention in the stacktrace. 
 
-Since we are loading our tracing code with `-r ./tracing.js` and our node command can have as many `-r`s as we like we can
+Since we are loading our tracing code with `-r ./tracing.js` and our node command can have as many `-r`s as we like we can.
 
 1. add `./tracing.js` and its dependencies
 2. alias `node` with `node -r ./tracing.js`
