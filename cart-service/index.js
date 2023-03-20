@@ -2,6 +2,7 @@
 
 const cors = require('@fastify/cors')
 const { getAllProducts } = require('./get-all-products')
+const { asyncFibonacci } = require('./fibonacci')
 
 const fastify = require('fastify')({
   logger: {
@@ -89,6 +90,12 @@ fastify.post('/api/cart/:cartId', async (request, reply) => {
     items,
     total: items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   })
+})
+
+fastify.get('/api/fibonacci/:arg', async (request, reply) => {
+  const arg = parseInt(request.params.arg)
+
+  reply.send({ result: await asyncFibonacci(arg) })
 })
 
 const start = async () => {

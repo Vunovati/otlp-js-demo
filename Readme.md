@@ -137,12 +137,12 @@ It runs getNodeAutoInstrumentations() to detect the libraries used and then auto
 All instrumentations are included in the @opentelemetry/auto-instrumentations-node by default.
 
 The list of available instrumentations is here: https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/plugins/node
-Auto instrumentation is a solid and easy option get started quickly. The possible downside is that it is not customizable which means it could introduce the noise of unnecessary spans.  
+Auto instrumentation is a solid and easy option get started quickly. The possible downside is that it is not customisable, which could introduce the noise of unnecessary spans.  
 
 ##### Manual instrumentation
 We select the instrumentation packages to use. We are also able to configure them which. 
-In our example, we select HttpInstrumentation, FastifyInstrumentation and PinoInstrumentation. In addition we are able to configure 
-our HttpInsturmentation to ignore the /healthckeck route.
+In our example, we select HttpInstrumentation, FastifyInstrumentation and PinoInstrumentation. In addition we can configure 
+our HttpInsturmentation to ignore the `/healthckeck` route.
 
 Node-fetch, which is based on undici does not work (yet?). Only the old stuff works.  (TODO: find a name for that). 
 

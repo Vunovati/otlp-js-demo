@@ -1,23 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-app
+  name: cart-service
   labels:
-    app: backend-app
+    app: cart-service
 spec:
   selector:
     matchLabels:
-      app: backend-app
+      app: cart-service
   template:
     metadata:
       labels:
-        app: backend-app
+        app: cart-service
     spec:
       containers:
-        - name: backend-app
-          image: backend-app-image
+        - name: cart-service
+          image: cart-service-image
           ports:
             - containerPort: 3000
-      env:
-        - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+          env:
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+          - name: PRODUCTS_SERVICE_URL
+            value: 'http://products-service.default.svc.cluster.local:3001/api/products'
