@@ -40,9 +40,7 @@ const provider = new WebTracerProvider({
 
 const consoleExporter = new ConsoleSpanExporter();
 const otlpExporter = new OTLPTraceExporter({
-  // TODO: read from OTEL_EXPORTER_OTLP_ENDPOINT - https://www.npmjs.com/package/@opentelemetry/exporter-trace-otlp-http
-  //url: 'http://localhost:4318/v1/traces', // url is optional and can be omitted - default is
-  url: "http://localhost:8010/proxy/v1/traces", // url is optional and can be omitted - default is
+  url: "http://localhost:8010/proxy/v1/traces", 
   headers: {
     foo: "bar",
   }, // an optional object containing custom headers to be sent with each request will only work with http
@@ -51,7 +49,7 @@ const otlpExporter = new OTLPTraceExporter({
 
 const consoleProcessor = new SimpleSpanProcessor(consoleExporter);
 const otlpBatchProcessor = new BatchSpanProcessor(otlpExporter, {
-  maxExportBatchSize: 5,
+  maxExportBatchSize: 2,
 });
 
 provider.addSpanProcessor(consoleProcessor);
