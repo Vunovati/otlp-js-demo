@@ -18,7 +18,7 @@ The predecessors were OpenCensus and OpenTracing, but they were both merged into
 ```
       "headers": {
         "accept": "application/json, text/plain, */*",
-...        
+           ...        
         "x-request-id": "1bfe176b-8e28-482a-90b9-0d4dfdadf303",
       }
 ```
@@ -43,7 +43,7 @@ In our requests, we propagate the traceparent header.
       "headers": {
         "accept": "application/json, text/plain, */*",
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7),
-...        
+            ...        
         "traceparent": "00-a8a4234b4c5c9b809bd2fe71074e6345-56df00bfd9d8ebf4-01",
       }
 ```

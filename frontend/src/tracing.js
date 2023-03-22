@@ -20,10 +20,8 @@ registerInstrumentations({
       // These are the urls we propagate the trace headers to - E.G our backend, it is best to use a regexp
       // The header sent is traceparent: 00-7755276766ab4b59f7dd8ef0d96b66e5-7334fe7ecb859bc5-01
       propagateTraceHeaderCorsUrls: [
-        "http://localhost:8090",
-        "https://api.github.com",
-        /https:\/\/api.github.com\.*/,
         /http:\/\/localhost:3000\.*/,
+        /http:\/\/localhost:3001\.*/,
       ],
     }),
   ],
@@ -31,8 +29,8 @@ registerInstrumentations({
 
 const resource = Resource.default().merge(
   new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: "otel-js-frontend",
-    [SemanticResourceAttributes.SERVICE_VERSION]: "1.0.0",
+    [SemanticResourceAttributes.SERVICE_NAME]: "WebShop React SPA",
+    [SemanticResourceAttributes.SERVICE_VERSION]: "2.0.1",
   })
 );
 
@@ -53,7 +51,7 @@ const otlpExporter = new OTLPTraceExporter({
 
 const consoleProcessor = new SimpleSpanProcessor(consoleExporter);
 const otlpBatchProcessor = new BatchSpanProcessor(otlpExporter, {
-  maxExportBatchSize: 2,
+  maxExportBatchSize: 5,
 });
 
 provider.addSpanProcessor(consoleProcessor);
