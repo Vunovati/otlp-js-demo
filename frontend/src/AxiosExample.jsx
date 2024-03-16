@@ -1,15 +1,16 @@
 import {
   QueryClient,
   QueryClientProvider,
-  useMutation,
-  useQuery,
+  //  useMutation,
+  //  useQuery,
 } from "react-query";
-import axios from "axios";
+// import axios from "axios";
 import React, { useState } from "react";
 import ProductList from "./ProductList";
 import Cart from "./Cart";
+import { allProducts } from "./mockData";
 
-const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
+// const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
 
 const queryClient = new QueryClient();
 
@@ -22,39 +23,55 @@ export default function AxiosExample() {
 }
 
 function Example() {
-  const { data: products } = useQuery("products", () =>
-    axios.get(VITE_PRODUCTS_SERVICE_URL).then((res) => res.data)
-  );
+  //  const { data: productsQ } = useQuery("products", () =>
+  //    axios.get(VITE_PRODUCTS_SERVICE_URL).then((res) => res.data)
+  //  );
+  //
+  //  const { data: cartQ } = useQuery("cart", () =>
+  //    axios.get(VITE_CART_SERVICE_URL).then((res) => res.data)
+  //  );
+  //
+  //  const { mutate: updateCartQ } = useMutation({
+  //    mutationFn: (cartState) =>
+  //      axios.post(VITE_CART_SERVICE_URL, cartState).then((res) => res.data),
+  //    onSuccess: (data) => {
+  //      queryClient.setQueryData(["cart"], data);
+  //    },
+  //  });
 
-  const { data: cart } = useQuery("cart", () =>
-    axios
-      .get(VITE_CART_SERVICE_URL)
-      .then((res) => res.data)
-  );
+  const products = allProducts;
 
-  const { mutate: updateCart } = useMutation({
-    mutationFn: (cartState) =>
-      axios
-        .post(VITE_CART_SERVICE_URL, cartState)
-        .then((res) => res.data),
-    onSuccess: (data) => {
-      queryClient.setQueryData(["cart"], data);
-    },
+  const [cart, setCart] = useState({
+    items: [{ ...products[0], quantity: 1 }],
+    total: products[0].price,
   });
 
-  async function removeItemFromCart(cartItemId) {
-    const newCartItems = cart.items.map((product) => {
-      if (product.id === cartItemId) {
-        return [cartItemId, product.quantity - 1];
-      }
+  async function updateCart(newCartItems) {
+    console.log(
+      `Update cart with new cart items ${JSON.stringify(newCartItems, null, 2)}`
+    );
 
-      return [product.id, product.quantity];
+    setCart({
+      items: newCartItems.map(([id, quantity]) => ({
+        ...products.find((p) => p.id === id),
+        quantity,
+      })),
+      total: newCartItems.reduce(
+        (sum, [id, quantity]) =>
+          sum + products.find((p) => p.id === id).price * quantity,
+        0
+      ),
     });
+  }
 
-    return updateCart(newCartItems);
+  async function removeItemFromCart(cartItemId) {
+    const newCartItems = cart.items.filter((i) => i.id !== cartItemId);
+
+    return updateCart(newCartItems.map((item) => [item.id, item.quantity]));
   }
 
   async function addItemToCart(cartItemId) {
+    console.log(`add item ${cartItemId}`);
     const cartItemsMap = new Map(
       cart.items.map((item) => [item.id, item.quantity])
     );
@@ -68,8 +85,6 @@ function Example() {
 
     return updateCart([...cartItemsMap]);
   }
-
-  console.log(`Cart: ${JSON.stringify(cart, null, 2)}`);
 
   const [open, setOpen] = useState(true);
 
