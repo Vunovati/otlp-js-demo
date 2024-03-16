@@ -1,6 +1,4 @@
 k8s_yaml('jaeger-deployment.yaml')
-# include('./frontend/Tiltfile')
-# include('./backend/Tiltfile')
 k8s_resource('jaeger', port_forwards=[16686, 4318])
 
 
@@ -16,7 +14,7 @@ ENV API_HOST 0.0.0.0
 
 docker_build('cart-service-image', '.',
     build_args={'node_env': 'development'},
-    entrypoint='node --watch -r "./tracing.js" index.js',
+    entrypoint='node --watch -r "./tracing/auto-instrumentation.js" index.js',
     dockerfile_contents=dockerfile_cart,
     live_update=[
         sync('./cart-service', '/app'),
@@ -40,7 +38,7 @@ ENV API_HOST 0.0.0.0
 
 docker_build('products-service-image', '.',
     build_args={'node_env': 'development'},
-    entrypoint='node --watch -r "./tracing.js" index.js',
+    entrypoint='node --watch -r "./tracing/auto-instrumentation.js" index.js',
     dockerfile_contents=dockerfile_products,
     live_update=[
         sync('./products-service', '/app'),

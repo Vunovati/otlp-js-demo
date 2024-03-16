@@ -19,7 +19,11 @@ spec:
           ports:
             - containerPort: 3000
           env:
-          - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: 'http://jaeger-collector.default.svc.cluster.local:4318'
           - name: PRODUCTS_SERVICE_URL
             value: 'http://products-service.default.svc.cluster.local:3001/api/products'
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+          - name: OTEL_SERVICE_NAME
+            value: 'Cart Service'
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: 'service.version=0.0.6,service.namespace=default,deployment.environment=dev'

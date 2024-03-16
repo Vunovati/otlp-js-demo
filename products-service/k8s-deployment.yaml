@@ -21,6 +21,10 @@ spec:
           env:
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+          - name: OTEL_SERVICE_NAME
+            value: 'Products Service'
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: 'service.version=4.2.0,service.namespace=default,deployment.environment=dev'
 ---
 apiVersion: v1
 kind: Service
