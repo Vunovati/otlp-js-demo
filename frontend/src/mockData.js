@@ -42,6 +42,45 @@ export const allProducts = [
       imageAlt: "Front of men's Basic Tee in black.",
       price: 42,
       color: 'Multicolor'
+    },
+    // additional products...
+    {
+      id: 5,
+      name: 'Striped Shirt',
+      href: '#',
+      imageSrc: 'https://example.com/path/to/image.jpg',
+      imageAlt: "Front of men's Striped Shirt.",
+      price: 50,
+      color: 'Blue/White'
+    },
+    {
+      id: 6,
+      name: 'Denim Jeans',
+      href: '#',
+      imageSrc: 'https://example.com/path/to/image.jpg',
+      imageAlt: "Front of men's Denim Jeans.",
+      price: 60,
+      color: 'Blue'
+    },
+    {
+      id: 7,
+      name: 'Leather Jacket',
+      href: '#',
+      imageSrc: 'https://example.com/path/to/image.jpg',
+      imageAlt: "Front of men's Leather Jacket.",
+      price: 120,
+      color: 'Black'
+    },
+    {
+      id: 8,
+      name: 'Sneakers',
+      href: '#',
+      imageSrc: 'https://example.com/path/to/image.jpg',
+      imageAlt: "Front of men's Sneakers.",
+      price: 80,
+      color: 'Red/White'
     }
-    // More products...
-  ]
+    // And so on, adding more products...
+  ];
+
+  
