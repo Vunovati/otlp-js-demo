@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Components/Button";
 // Wrap, populate from useQuery
 export default function ProductList({ products = [], addItemToCart }) {
   return (
@@ -21,6 +22,9 @@ export default function ProductList({ products = [], addItemToCart }) {
                   alt={product.imageAlt}
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
+                <Button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  Click me
+                </Button>
               </div>
               <div className="mt-4 flex justify-between">
                 <div>
