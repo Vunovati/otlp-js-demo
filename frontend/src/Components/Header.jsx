@@ -24,72 +24,267 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
+
+// const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 const navigation = {
   categories: [
     {
       name: 'Women',
       featured: [
-        {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-        },
-        {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-        },
-        {
-          name: 'Accessories',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-03.jpg',
-          imageAlt: 'Model wearing minimalist watch with black wristband and white watch face.',
-        },
-        {
-          name: 'Carry',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg',
-          imageAlt: 'Model opening tan leather long wallet with credit card pockets and cash pouch.',
-        },
+      //   {
+      //     id: 3,
+      //     name: 'Basic Tee',
+      //     href: '#',
+      //     // TODO: add some sample images to the gh repo
+      //     imageSrc:
+      //       'src/WebShopImages/BasicTee/BasicTee07.jpg',
+      //     imageAlt: "Front of men's Basic Tee in black.",
+      //     price: 37,
+      //     color: 'Black'
+          
+      //   },{
+      //     id: 4,
+      //     name: 'Hoodie',
+      //     href: '#',
+      //     // TODO: add some sample images to the gh repo
+      //     imageSrc:
+      //       'src/WebShopImages/Hoodie/hoodie01.jpg',
+      //     imageAlt: "Front of men's Basic Tee in black.",
+      //     price: 42,
+      //     color: 'White'
+      //   },
+        
+      //   {
+      //     id: 5,
+      //     name: 'Hoodie',
+      //     href: '#',
+      //     imageSrc: 'src/WebShopImages/Hoodie/hoodie02.jpg',
+      //     imageAlt: "Front of men's Striped Shirt.",
+      //     price: 50,
+      //     color: 'Orange'
+      //   },
+      //   {
+      //     id: 6,
+      //     name: 'Hoodie',
+      //     href: '#',
+      //     imageSrc: 'src/WebShopImages/Hoodie/hoodie03.jpg',
+      //     imageAlt: "Front of men's Denim Jeans.",
+      //     price: 60,
+      //     color: 'Mint'
+      //   },
+      //   {
+      //     id: 7,
+      //     name: 'Leather Jacket',
+      //     href: '#',
+      //     imageSrc: 'src/WebShopImages/Leather/leather01.jpg',
+      //     imageAlt: "Front of woman's Leather Jacket.",
+      //     price: 120,
+      //     color: 'Round Collar'
+      //   },
+      //   {
+      //     id: 8,
+      //     name: 'Leather Jacket',
+      //     href: '#',
+      //     imageSrc: 'src/WebShopImages/Leather/leather02.jpg',
+      //     imageAlt: "Front of woman's Sneakers.",
+      //     price: 80,
+      //     color: 'Regular Collar'
+      //   },
+      //   {
+      //     id: 10,
+      //     name: 'Striped Shirt',
+      //     href: '#',
+      //       // TODO: add some sample images to the gh repo
+      //     imageSrc:
+      //         'src/WebShopImages/StripedTee/Striped03.jpg',
+      //     imageAlt: "Front of men's Basic Tee in black.",
+      //     price: 35,
+      //     color: 'Female'
+      //  },
+      //  {
+      //   id: 15,
+      //   name: 'Denim Jeans',
+      //   href: '#',
+      //   // TODO: add some sample images to the gh repo
+      //   imageSrc:
+      //     'src/WebShopImages/Jeans/jeans01.jpg',
+      //   imageAlt: "Front of men's Basic Tee in black.",
+      //   price: 35,
+      //   color: 'Classic Jeans'
+      // }
+        
       ],
     },
     {
       name: 'Men',
       featured: [
-        {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg',
-          imageAlt: 'Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.',
-        },
-        {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg',
-          imageAlt: 'Model wearing light heather gray t-shirt.',
-        },
-        {
-          name: 'Accessories',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg',
-          imageAlt:
-            'Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.',
-        },
-        {
-          name: 'Carry',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg',
-          imageAlt: 'Model putting folded cash into slim card holder olive leather wallet with hand stitching.',
-        },
+    //     {
+    //       id: 1,
+    //       name: 'Basic Tee',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/BasicTee/BasicTee01.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 35,
+    //       color: 'White'
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'Basic Tee',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/BasicTee/BasicTee06.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 45,
+    //       color: 'White'
+    //     },
+  
+    //     {
+    //       id: 9,
+    //       name: 'Striped Shirt',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/StripedTee/Striped02.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 35,
+    //       color: 'Male'
+    //     },
+    //     {
+    //   id: 16,
+    //   name: 'Denim Jeans',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Jeans/jeans02.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Ripped Jeans'
+    // },
+    // {
+    //   id: 17,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck01.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Midnight Blue'
+    // },
+    // {
+    //   id: 18,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck02.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Black'
+    // },
+    // {
+    //   id: 19,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck03.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'White'
+    // }
+      ],
+    },
+    {
+      name: 'New Arrivals',
+      featured: [
+    //     {
+    //       id: 1,
+    //       name: 'Basic Tee',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/BasicTee/BasicTee01.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 35,
+    //       color: 'White'
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'Basic Tee',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/BasicTee/BasicTee06.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 45,
+    //       color: 'White'
+    //     },
+  
+    //     {
+    //       id: 9,
+    //       name: 'Striped Shirt',
+    //       href: '#',
+    //       // TODO: add some sample images to the gh repo
+    //       imageSrc:
+    //         'src/WebShopImages/StripedTee/Striped02.jpg',
+    //       imageAlt: "Front of men's Basic Tee in black.",
+    //       price: 35,
+    //       color: 'Male'
+    //     },
+    //     {
+    //   id: 16,
+    //   name: 'Denim Jeans',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Jeans/jeans02.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Ripped Jeans'
+    // },
+    // {
+    //   id: 17,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck01.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Midnight Blue'
+    // },
+    // {
+    //   id: 18,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck02.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'Black'
+    // },
+    // {
+    //   id: 19,
+    //   name: 'Turtleneck',
+    //   href: '#',
+    //   // TODO: add some sample images to the gh repo
+    //   imageSrc:
+    //     'src/WebShopImages/Turtleneck/turtleneck03.jpg',
+    //   imageAlt: "Front of men's Basic Tee in black.",
+    //   price: 35,
+    //   color: 'White'
+    // }
       ],
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { name: 'New Arrivals', href: '#' },
+    
   ],
 }
 
@@ -99,6 +294,15 @@ function classNames(...classes) {
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+
+  // const toggleMenu = () => {
+  //   setOpen(!open);
+  //   if (!open) {
+  //     document.body.classList.add('overflow-hidden');
+  //   } else {
+  //     document.body.classList.remove('overflow-hidden');
+  //   }
+  // };
 
   return (
     <div className="bg-white">
@@ -207,7 +411,7 @@ export default function Header() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {/* Currency selector */}
-                  <form>
+                  {/* <form>
                     <div className="inline-block">
                       <label htmlFor="mobile-currency" className="sr-only">
                         Currency
@@ -227,7 +431,7 @@ export default function Header() {
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </form> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -241,7 +445,7 @@ export default function Header() {
           <div className="bg-gray-900">
             <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
               {/* Currency selector */}
-              <form>
+              {/* <form>
                 <div>
                   <label htmlFor="desktop-currency" className="sr-only">
                     Currency
@@ -261,7 +465,7 @@ export default function Header() {
                     </div>
                   </div>
                 </div>
-              </form>
+              </form> */}
 
               <div className="flex items-center space-x-6">
                 <a href="#" className="text-sm font-medium text-white hover:text-gray-100">
@@ -283,11 +487,7 @@ export default function Header() {
                   <div className="hidden lg:flex lg:flex-1 lg:items-center">
                     <a href="#">
                       <span className="sr-only">Your Company</span>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt=""
-                      />
+                      
                     </a>
                   </div>
 
@@ -419,6 +619,7 @@ export default function Header() {
                             className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                             aria-hidden="true"
                           />
+      
                           <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                           <span className="sr-only">items in cart, view bag</span>
                         </a>

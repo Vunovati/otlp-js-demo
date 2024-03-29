@@ -16,15 +16,13 @@ export default function ProductList({ products = [], addItemToCart }) {
               className="group relative"
               onClick={() => addItemToCart(product.id)}
             >
-              <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+              <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80 relative">
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
-                <Button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  Click me
-                </Button>
+                 <Button />
               </div>
               <div className="mt-4 flex justify-between">
                 <div>
