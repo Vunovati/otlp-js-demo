@@ -10,6 +10,7 @@ import { trace } from "@opentelemetry/api";
 import ProductList from "./ProductList";
 import CartModal from "./CartModal";
 import { useSessionId } from "./useSessionId";
+import Layout from "./Layout";
 
 const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
 
@@ -89,8 +90,9 @@ function Example() {
     const updatedItem = cartItemsMap.get(cartItemId);
     if (!updatedItem) {
       cartItemsMap.set(cartItemId, 1);
-      return updateCart([...cartItemsMap]);
     }
+
+    return updateCart([...cartItemsMap]);
   }
 
   async function updateCartItemQuantity(cartItemId, quantity) {
@@ -101,17 +103,15 @@ function Example() {
     const updatedItem = cartItemsMap.get(cartItemId);
     if (updatedItem) {
       cartItemsMap.set(cartItemId, quantity);
-      return updateCart([...cartItemsMap]);
     }
+
+    return updateCart([...cartItemsMap]);
   }
 
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
-      <button onClick={() => setOpen(true)}>
-        Cart({cart?.items?.length ?? 0})
-      </button>
+    <Layout cart={cart} setOpen={setOpen}>
       <ProductList products={products} addItemToCart={addItemToCart} />
       {cart && (
         <CartModal
@@ -122,6 +122,6 @@ function Example() {
           setOpen={setOpen}
         />
       )}
-    </div>
+    </Layout>
   );
 }
