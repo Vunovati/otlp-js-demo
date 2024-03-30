@@ -4,11 +4,12 @@ import "./App.css";
 import "./tracing.js";
 
 import opentelemetry from "@opentelemetry/api";
-import AxiosExample from "./AxiosExample";
+import WebShop from "./WebShop";
 
 const tracer = opentelemetry.trace.getTracer("my-service-tracer");
 
 function App() {
+  // TODO: remove this example counter
   const [count, setCount] = useState(0);
 
   return (
@@ -28,7 +29,7 @@ function App() {
           count is {count}
         </button>
       </div>
-      <AxiosExample />
+      <WebShop />
     </div>
   );
 }
