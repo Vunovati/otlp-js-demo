@@ -10,7 +10,8 @@ const {
 const { Resource } = require('@opentelemetry/resources')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
 const {
-  SemanticResourceAttributes
+  SemanticResourceAttributes,
+  SEMRESATTRS_SERVICE_NAME // TODO: use this instead
 } = require('@opentelemetry/semantic-conventions')
 
 // configure the SDK to export telemetry data to the console
@@ -26,7 +27,7 @@ const instrumentations = [
 
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: 'Cart Service'
+    [SemanticResourceAttributes.SERVICE_NAME]: 'Cart Service' // TODO: replace with SEMRESATTRS_SERVICE_NAME
   }),
   traceExporter,
   instrumentations
@@ -34,10 +35,7 @@ const sdk = new opentelemetry.NodeSDK({
 
 // initialize the SDK and register with the OpenTelemetry API
 // this enables the API to record telemetry
-sdk
-  .start()
-  .then(() => console.log('Tracing initialized'))
-  .catch(error => console.log('Error initializing tracing', error))
+sdk.start()
 
 // gracefully shut down the SDK on process exit
 process.on('SIGTERM', () => {

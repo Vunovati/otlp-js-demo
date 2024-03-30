@@ -4,7 +4,7 @@ k8s_resource('jaeger', port_forwards=[16686, 4318])
 
 # CART
 dockerfile_cart="""
-FROM node:18-bullseye
+FROM node:20-bullseye
 WORKDIR /app
 COPY cart-service/package*.json .
 RUN npm install
@@ -25,10 +25,9 @@ docker_build('cart-service-image', '.',
 k8s_yaml('./cart-service/k8s-deployment.yaml')
 k8s_resource('cart-service', port_forwards=3000)
 
-
 # PRODUCTS
 dockerfile_products="""
-FROM node:18-bullseye
+FROM node:20-bullseye
 WORKDIR /app
 COPY products-service/package*.json .
 RUN npm install
@@ -46,13 +45,23 @@ docker_build('products-service-image', '.',
     ]
 )
 
+dockerfile_postgres="""
+FROM postgres:16
+ENV POSTGRES_DB products
+ENV POSTGRES_USER user
+ENV POSTGRES_PASSWORD password
+"""
+docker_build('postgres-image', '.',
+    dockerfile_contents=dockerfile_postgres,
+)
+
 k8s_yaml('./products-service/k8s-deployment.yaml')
 k8s_resource('products-service', port_forwards=3001)
-
+k8s_resource('postgres', port_forwards=5432)
 
 # FRONTEND
 dockerfile_frontend="""
-FROM node:18-bullseye
+FROM node:20-bullseye
 WORKDIR /app
 COPY frontend/package*.json .
 RUN npm install
