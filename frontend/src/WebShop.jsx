@@ -8,8 +8,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { trace } from "@opentelemetry/api";
 import ProductList from "./ProductList";
-import Cart from "./Cart";
+import CartModal from "./CartModal";
 import { useSessionId } from "./useSessionId";
+import Layout from "./Layout";
 
 const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
 
@@ -64,7 +65,7 @@ function Example() {
         span.end();
 
         return res.data;
-      })
+      });
     },
     onSuccess: (data) => {
       queryClient.setQueryData(["cart"], data);
@@ -72,13 +73,11 @@ function Example() {
   });
 
   async function removeItemFromCart(cartItemId) {
-    const newCartItems = cart.items.map((product) => {
-      if (product.id === cartItemId) {
-        return [cartItemId, product.quantity - 1];
-      }
-
-      return [product.id, product.quantity];
-    });
+    const newCartItems = cart.items
+      .filter((p) => p.id !== cartItemId)
+      .map((product) => {
+        return [product.id, product.quantity];
+      });
 
     return updateCart(newCartItems);
   }
@@ -89,29 +88,40 @@ function Example() {
     );
 
     const updatedItem = cartItemsMap.get(cartItemId);
-    if (updatedItem) {
-      cartItemsMap.set(cartItemId, updatedItem.quantity + 1);
-    } else {
+    if (!updatedItem) {
       cartItemsMap.set(cartItemId, 1);
     }
 
     return updateCart([...cartItemsMap]);
   }
 
-  const [open, setOpen] = useState(true);
+  async function updateCartItemQuantity(cartItemId, quantity) {
+    const cartItemsMap = new Map(
+      cart.items.map((item) => [item.id, item.quantity]),
+    );
+
+    const updatedItem = cartItemsMap.get(cartItemId);
+    if (updatedItem) {
+      cartItemsMap.set(cartItemId, quantity);
+    }
+
+    return updateCart([...cartItemsMap]);
+  }
+
+  const [open, setOpen] = useState(false);
 
   return (
-    <div>
-      <button onClick={() => setOpen(true)}>
-        Cart({cart?.items?.length ?? 0})
-      </button>
+    <Layout cart={cart} setOpen={setOpen}>
       <ProductList products={products} addItemToCart={addItemToCart} />
-      <Cart
-        cart={cart}
-        removeItemFromCart={removeItemFromCart}
-        open={open}
-        setOpen={setOpen}
-      />
-    </div>
+      {cart && (
+        <CartModal
+          cart={cart}
+          removeItemFromCart={removeItemFromCart}
+          updateCartItemQuantity={updateCartItemQuantity}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
+    </Layout>
   );
 }
