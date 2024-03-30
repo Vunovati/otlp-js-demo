@@ -34,19 +34,19 @@ const fastify = require('fastify')({
 })
 
 const carts = new Map()
-carts.set(
-  'demo-cart',
-  new Map([
-    [1, 1],
-    [2, 1]
-  ])
-)
 
-fastify.get('/api/cart/:cartId', async (request, reply) => {
-  const cart = carts.get(request.params.cartId)
+fastify.get('/api/cart', async (request, reply) => {
+  const sessionId = request.headers['x-session-id']
+
+  if (!sessionId) {
+    return reply.statusCode(400)
+  }
+
+  let cart = carts.get(sessionId)
 
   if (!cart) {
-    return reply.statusCode(404)
+    carts.set(sessionId, new Map())
+    cart = carts.get(sessionId)
   }
 
   const allProducts = await getAllProducts()
@@ -66,10 +66,16 @@ fastify.get('/api/cart/:cartId', async (request, reply) => {
   })
 })
 
-fastify.post('/api/cart/:cartId', async (request, reply) => {
+fastify.post('/api/cart', async (request, reply) => {
   const newCartItems = request.body.filter(([, quantity]) => quantity > 0)
   console.log(`Updated cart ${JSON.stringify(newCartItems, null, 2)}`)
-  const cart = carts.set(request.params.cartId, newCartItems)
+  const sessionId = request.headers['x-session-id']
+
+  if (!sessionId) {
+    return reply.statusCode(400)
+  }
+
+  const cart = carts.set(sessionId, newCartItems)
 
   if (!cart) {
     return reply.statusCode(404)
