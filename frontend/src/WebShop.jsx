@@ -8,7 +8,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { trace } from "@opentelemetry/api";
 import ProductList from "./ProductList";
-import Cart from "./Cart";
+import CartModal from "./CartModal";
 import { useSessionId } from "./useSessionId";
 
 const { VITE_PRODUCTS_SERVICE_URL, VITE_CART_SERVICE_URL } = import.meta.env;
@@ -98,6 +98,19 @@ function Example() {
     return updateCart([...cartItemsMap]);
   }
 
+  async function updateCartItemQuantity(cartItemId, quantity) {
+    const cartItemsMap = new Map(
+      cart.items.map((item) => [item.id, item.quantity]),
+    );
+
+    const updatedItem = cartItemsMap.get(cartItemId);
+    if (updatedItem) {
+      cartItemsMap.set(cartItemId, quantity);
+    }
+
+    return updateCart([...cartItemsMap]);
+  }
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -107,9 +120,10 @@ function Example() {
       </button>
       <ProductList products={products} addItemToCart={addItemToCart} />
       {cart && (
-        <Cart
+        <CartModal
           cart={cart}
           removeItemFromCart={removeItemFromCart}
+          updateCartItemQuantity={updateCartItemQuantity}
           open={open}
           setOpen={setOpen}
         />

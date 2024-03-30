@@ -68,7 +68,6 @@ fastify.get('/api/cart', async (request, reply) => {
 
 fastify.post('/api/cart', async (request, reply) => {
   const newCartItems = request.body.filter(([, quantity]) => quantity > 0)
-  console.log(`Updated cart ${JSON.stringify(newCartItems, null, 2)}`)
   const sessionId = request.headers['x-session-id']
 
   if (!sessionId) {
