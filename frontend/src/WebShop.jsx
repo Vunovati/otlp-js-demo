@@ -72,13 +72,11 @@ function Example() {
   });
 
   async function removeItemFromCart(cartItemId) {
-    const newCartItems = cart.items.map((product) => {
-      if (product.id === cartItemId) {
-        return [cartItemId, product.quantity - 1];
-      }
-
-      return [product.id, product.quantity];
-    });
+    const newCartItems = cart.items
+      .filter((p) => p.id !== cartItemId)
+      .map((product) => {
+        return [product.id, product.quantity];
+      });
 
     return updateCart(newCartItems);
   }
@@ -89,13 +87,10 @@ function Example() {
     );
 
     const updatedItem = cartItemsMap.get(cartItemId);
-    if (updatedItem) {
-      cartItemsMap.set(cartItemId, updatedItem.quantity + 1);
-    } else {
+    if (!updatedItem) {
       cartItemsMap.set(cartItemId, 1);
+      return updateCart([...cartItemsMap]);
     }
-
-    return updateCart([...cartItemsMap]);
   }
 
   async function updateCartItemQuantity(cartItemId, quantity) {
@@ -106,9 +101,8 @@ function Example() {
     const updatedItem = cartItemsMap.get(cartItemId);
     if (updatedItem) {
       cartItemsMap.set(cartItemId, quantity);
+      return updateCart([...cartItemsMap]);
     }
-
-    return updateCart([...cartItemsMap]);
   }
 
   const [open, setOpen] = useState(false);
