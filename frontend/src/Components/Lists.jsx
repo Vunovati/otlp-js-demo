@@ -1,9 +1,8 @@
+import React from 'react'
 import { allProducts } from "../mockData";
 
 // Ovdje stavljam funkcije kojima filtriram proizvode u 4 kategorije: Women, Men, New Arrivals, Trending Now
 
-
-function Lists(){
 
     function listWomenProducts(){
         const women = allProducts.filter(product => product.gender === 'Female');
@@ -52,6 +51,5 @@ function Lists(){
 
       
 
-}
 
-export default { Lists, listWomenProducts, listMenProducts, listNewArrivedProducts, listTrendingNowProducts };
+export { listWomenProducts, listMenProducts, listNewArrivedProducts, listTrendingNowProducts };
