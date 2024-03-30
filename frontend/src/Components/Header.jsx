@@ -23,7 +23,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Lists, listWomenProducts, listMenProducts, listNewArrivedProducts, listTrendingNowProducts } from "./Components/Lists.jsx";
+import { listWomenProducts, listMenProducts, listNewArrivedProducts, listTrendingNowProducts } from "./Lists.jsx";
 
 
 // const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']

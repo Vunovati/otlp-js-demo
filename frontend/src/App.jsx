@@ -5,7 +5,7 @@ import "./tracing.js";
 
 import opentelemetry from "@opentelemetry/api";
 import AxiosExample from "./AxiosExample";
-import Header from "./Components/header.jsx";
+import Header from "./Components/Header.jsx";
 
 
 
