@@ -28,57 +28,17 @@ const fastify = require('fastify')({
   }
 })
 
-const allProducts = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    // TODO: add some sample images to the gh repo
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    color: 'Black'
-  },
-  {
-    id: 2,
-    name: 'Basic Tee',
-    href: '#',
-    // TODO: add some sample images to the gh repo
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    color: 'Black'
-  },
-  {
-    id: 3,
-    name: 'Basic Tee',
-    href: '#',
-    // TODO: add some sample images to the gh repo
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    color: 'Black'
-  },
-  {
-    id: 4,
-    name: 'Basic Tee',
-    href: '#',
-    // TODO: add some sample images to the gh repo
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    color: 'Black'
-  }
-  // More products...
-]
+const { Pool } = require('pg')
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+})
+
 
 // TODO: get allProducts from another service
 fastify.get('/api/products', async (_request, reply) => {
-  reply.send(allProducts)
+  const res = await pool.query('SELECT * FROM products')
+  reply.send(res.rows)
 })
 
 const start = async () => {
@@ -95,3 +55,17 @@ const start = async () => {
 }
 
 start()
+
+process.on('SIGINT', async () => {
+  console.log('Received SIGINT. Shutting down gracefully...')
+  await fastify.close()
+  await pool.end()
+  process.exit(0)
+})
+
+process.on('SIGTERM', async () => {
+  console.log('Received SIGTERM. Shutting down gracefully...')
+  await fastify.close()
+  await pool.end()
+  process.exit(0)
+})

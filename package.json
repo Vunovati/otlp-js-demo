@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Vunovati/otlp-js-demo#readme",
   "devDependencies": {
-    "eslint": "^8.34.0",
-    "prettier": "^2.8.4"
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
   }
 }

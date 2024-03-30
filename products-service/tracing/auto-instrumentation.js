@@ -17,10 +17,7 @@ const sdk = new opentelemetry.NodeSDK({
 
 // initialize the SDK and register with the OpenTelemetry API
 // this enables the API to record telemetry
-sdk
-  .start()
-  .then(() => console.log('Auto instrumented tracing initialized'))
-  .catch(error => console.log('Error initializing tracing', error))
+sdk.start()
 
 // gracefully shut down the SDK on process exit
 process.on('SIGTERM', () => {
