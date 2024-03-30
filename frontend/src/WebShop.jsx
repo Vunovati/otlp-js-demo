@@ -64,7 +64,7 @@ function Example() {
         span.end();
 
         return res.data;
-      })
+      });
     },
     onSuccess: (data) => {
       queryClient.setQueryData(["cart"], data);
@@ -106,12 +106,14 @@ function Example() {
         Cart({cart?.items?.length ?? 0})
       </button>
       <ProductList products={products} addItemToCart={addItemToCart} />
-      <Cart
-        cart={cart}
-        removeItemFromCart={removeItemFromCart}
-        open={open}
-        setOpen={setOpen}
-      />
+      {cart && (
+        <Cart
+          cart={cart}
+          removeItemFromCart={removeItemFromCart}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
     </div>
   );
 }

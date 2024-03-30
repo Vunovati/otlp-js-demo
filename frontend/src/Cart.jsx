@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Cart({
-  cart = { items: [], total: 0 },
+  cart,
   removeItemFromCart,
   open,
   setOpen,
