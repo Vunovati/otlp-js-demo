@@ -92,6 +92,7 @@ export default function CartModal({
                                 Quantity, {product.name}
                               </label>
                               <select
+                                value={product.quantity}
                                 id={`quantity-${productIdx}`}
                                 name={`quantity-${productIdx}`}
                                 className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
