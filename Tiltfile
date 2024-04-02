@@ -14,7 +14,7 @@ ENV API_HOST 0.0.0.0
 
 docker_build('cart-service-image', '.',
     build_args={'node_env': 'development'},
-    entrypoint='node --watch -r "./tracing/auto-instrumentation.js" index.js',
+    entrypoint='node --watch -r "./tracing/manual-instrumentation.js" index.js',
     dockerfile_contents=dockerfile_cart,
     live_update=[
         sync('./cart-service', '/app'),

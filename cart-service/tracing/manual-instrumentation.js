@@ -9,10 +9,6 @@ const {
 } = require('@opentelemetry/instrumentation-fastify')
 const { Resource } = require('@opentelemetry/resources')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
-const {
-  SemanticResourceAttributes,
-  SEMRESATTRS_SERVICE_NAME // TODO: use this instead
-} = require('@opentelemetry/semantic-conventions')
 
 // configure the SDK to export telemetry data to the console
 // enable all auto-instrumentations from the meta package
@@ -26,9 +22,7 @@ const instrumentations = [
 ]
 
 const sdk = new opentelemetry.NodeSDK({
-  resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: 'Cart Service' // TODO: replace with SEMRESATTRS_SERVICE_NAME
-  }),
+  resource: new Resource(),
   traceExporter,
   instrumentations
 })
