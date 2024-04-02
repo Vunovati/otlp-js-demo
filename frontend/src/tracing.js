@@ -1,5 +1,8 @@
 import { Resource } from "@opentelemetry/resources";
-import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
+import {
+  SEMRESATTRS_SERVICE_NAME,
+  SEMRESATTRS_SERVICE_VERSION,
+} from "@opentelemetry/semantic-conventions";
 import { WebTracerProvider } from "@opentelemetry/sdk-trace-web";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
 // We need this for XMLHttpRequest, axios etc.
@@ -29,9 +32,9 @@ registerInstrumentations({
 
 const resource = Resource.default().merge(
   new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: "WebShop React SPA",
-    [SemanticResourceAttributes.SERVICE_VERSION]: "2.0.1",
-  })
+    [SEMRESATTRS_SERVICE_NAME]: "WebShop React SPA",
+    [SEMRESATTRS_SERVICE_VERSION]: "2.1.0",
+  }),
 );
 
 const provider = new WebTracerProvider({
@@ -41,7 +44,7 @@ const provider = new WebTracerProvider({
 const consoleExporter = new ConsoleSpanExporter();
 const otlpExporter = new OTLPTraceExporter({
   // url: "http://localhost:8010/proxy/v1/traces",  // we use this with npm run proxy-cors-otlp
-  url: "http://localhost:5173/v1/traces", 
+  url: "http://localhost:5173/v1/traces",
   headers: {
     foo: "bar",
   }, // an optional object containing custom headers to be sent with each request will only work with http
