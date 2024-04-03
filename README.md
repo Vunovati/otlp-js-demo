@@ -7,6 +7,9 @@ The application consists of:
 * Products Service - Node.js app with PostgreSQL datastore
 * Cart Service - Node.js app with in-memory state
 
+<img width="590" alt="image" src="https://github.com/Vunovati/otlp-js-demo/assets/441333/7dcc7558-0a9a-4111-8713-1a7be1f1aa01">
+
+
 ## Running the project
 1. Install [Docker Desktop](https://docs.docker.com/desktop/) and [Tilt](https://docs.tilt.dev/install.html).
 2. [Enable Kubernetes in Docker](https://docs.docker.com/desktop/kubernetes/#install-and-turn-on-kubernetes)
