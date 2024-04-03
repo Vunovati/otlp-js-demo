@@ -23,6 +23,10 @@ spec:
             value: 'http://products-service.default.svc.cluster.local:3001/api/products'
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+          - name: OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
+            value: 'http://host.docker.internal:4317'
+          - name: OTEL_EXPORTER_OTLP_LOGS_PROTOCOL
+            value: 'grpc'
           - name: OTEL_SERVICE_NAME
             value: 'Cart Service'
           - name: OTEL_RESOURCE_ATTRIBUTES

@@ -7,7 +7,10 @@ const { asyncFibonacci } = require('./fibonacci')
 const fastify = require('fastify')({
   logger: {
     transport: {
-      target: 'pino-pretty'
+      targets: [
+        { target: 'pino-pretty' },
+        { target: 'pino-opentelemetry-transport', options: {} },
+      ]
     },
     serializers: {
       res(reply) {
