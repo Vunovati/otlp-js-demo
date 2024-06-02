@@ -3,6 +3,19 @@
 const cors = require('@fastify/cors')
 const { getAllProducts } = require('./get-all-products')
 const { asyncFibonacci } = require('./fibonacci')
+const { meterProvider } = require('./metrics')
+const { ValueType } = require('@opentelemetry/api')
+
+const { HostMetrics } = require('@opentelemetry/host-metrics');
+const meter = meterProvider.getMeter('cart-service-meter')
+
+const hostMetrics = new HostMetrics({ meterProvider, name: 'cart-service-host-metrics' });
+hostMetrics.start();
+
+const cartCreateCounter = meter.createCounter('cart_create', {
+  description: 'Count of created carts',
+  valueType: ValueType.INT
+})
 
 const fastify = require('fastify')({
   logger: {
@@ -48,6 +61,8 @@ fastify.get('/api/cart', async (request, reply) => {
   let cart = carts.get(sessionId)
 
   if (!cart) {
+    fastify.log.info(`Creating new cart for session ${sessionId}`)
+    cartCreateCounter.add(1)
     carts.set(sessionId, new Map())
     cart = carts.get(sessionId)
   }
@@ -110,7 +125,7 @@ const start = async () => {
   await fastify.register(cors)
   try {
     await fastify.listen({
-      port: 3000,
+      port: 8080,
       host: process.env['API_HOST'] ?? '127.0.0.1'
     })
   } catch (err) {

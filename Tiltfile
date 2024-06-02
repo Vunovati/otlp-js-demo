@@ -1,10 +1,12 @@
 k8s_yaml('jaeger-deployment.yaml')
 k8s_resource('jaeger', port_forwards=[16686, 4318])
 
+k8s_yaml('opentelemetry-backend.yaml')
+k8s_resource('otel-lgtm', port_forwards=['9999:3000'])
 
 # CART
 dockerfile_cart="""
-FROM node:20-bullseye
+FROM node:22-bullseye
 WORKDIR /app
 COPY cart-service/package*.json .
 RUN npm install
@@ -14,7 +16,7 @@ ENV API_HOST 0.0.0.0
 
 docker_build('cart-service-image', '.',
     build_args={'node_env': 'development'},
-    entrypoint='node --watch -r "./tracing/manual-instrumentation.js" index.js',
+    entrypoint='node -r "./tracing/auto-instrumentation.js" index.js',
     dockerfile_contents=dockerfile_cart,
     live_update=[
         sync('./cart-service', '/app'),
@@ -23,11 +25,11 @@ docker_build('cart-service-image', '.',
 )
 
 k8s_yaml('./cart-service/k8s-deployment.yaml')
-k8s_resource('cart-service', port_forwards=3000)
+k8s_resource('cart-service', port_forwards=8080)
 
 # PRODUCTS
 dockerfile_products="""
-FROM node:20-bullseye
+FROM node:22-bullseye
 WORKDIR /app
 COPY products-service/package*.json .
 RUN npm install
@@ -37,7 +39,7 @@ ENV API_HOST 0.0.0.0
 
 docker_build('products-service-image', '.',
     build_args={'node_env': 'development'},
-    entrypoint='node --watch -r "./tracing/auto-instrumentation.js" index.js',
+    entrypoint='node -r "./tracing/auto-instrumentation.js" index.js',
     dockerfile_contents=dockerfile_products,
     live_update=[
         sync('./products-service', '/app'),
@@ -56,12 +58,12 @@ docker_build('postgres-image', '.',
 )
 
 k8s_yaml('./products-service/k8s-deployment.yaml')
-k8s_resource('products-service', port_forwards=3001)
+k8s_resource('products-service', port_forwards=8081)
 k8s_resource('postgres', port_forwards=5432)
 
 # FRONTEND
 dockerfile_frontend="""
-FROM node:20-bullseye
+FROM node:22-bullseye
 WORKDIR /app
 COPY frontend/package*.json .
 RUN npm install

@@ -17,14 +17,14 @@ spec:
         - name: cart-service
           image: cart-service-image
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           env:
           - name: PRODUCTS_SERVICE_URL
-            value: 'http://products-service.default.svc.cluster.local:3001/api/products'
+            value: 'http://products-service.default.svc.cluster.local:8081/api/products'
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+            value: 'http://otel-lgtm:4318'
           - name: OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
-            value: 'http://host.docker.internal:4317'
+            value: 'http://otel-lgtm:4317'
           - name: OTEL_EXPORTER_OTLP_LOGS_PROTOCOL
             value: 'grpc'
           - name: OTEL_SERVICE_NAME

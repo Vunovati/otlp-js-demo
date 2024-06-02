@@ -23,8 +23,8 @@ registerInstrumentations({
       // These are the urls we propagate the trace headers to - E.G our backend, it is best to use a regexp
       // The header sent is traceparent: 00-7755276766ab4b59f7dd8ef0d96b66e5-7334fe7ecb859bc5-01
       propagateTraceHeaderCorsUrls: [
-        /http:\/\/localhost:3000\.*/,
-        /http:\/\/localhost:3001\.*/,
+        /http:\/\/localhost:8080\.*/,
+        /http:\/\/localhost:8081\.*/,
       ],
     }),
   ],
@@ -44,7 +44,7 @@ const provider = new WebTracerProvider({
 const consoleExporter = new ConsoleSpanExporter();
 const otlpExporter = new OTLPTraceExporter({
   // url: "http://localhost:8010/proxy/v1/traces",  // we use this with npm run proxy-cors-otlp
-  url: "http://localhost:5173/v1/traces",
+  url: "/v1/traces",
   headers: {
     foo: "bar",
   }, // an optional object containing custom headers to be sent with each request will only work with http

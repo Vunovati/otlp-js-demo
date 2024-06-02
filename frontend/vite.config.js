@@ -1,3 +1,4 @@
+/** @type {import('vite').UserConfig} */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -5,7 +6,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-      "/v1/traces": "http://host.docker.internal:4318", // the vite server is proxying back to host so that we skip the cors issues
+      "/v1/traces": "http://localhost:4318",
+      "/api/cart": "http://localhost:8080",
+      "/api/products": "http://localhost:8081",
     },
   },
   plugins: [react()],

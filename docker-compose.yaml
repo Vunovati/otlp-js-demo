@@ -1,0 +1,43 @@
+services:
+  cart-service:
+    build:
+      context: ./cart-service
+      args:
+        node_env: development
+    volumes:
+      - ./cart-service:/app
+    env_file:
+      - ./cart-service/.env
+    ports:
+      - "8080:8080"
+    command: node -r "./tracing/manual-instrumentation.js" index.js
+
+  products-service:
+    build:
+      context: ./products-service
+      args:
+        node_env: development
+    volumes:
+      - ./products-service:/app
+    env_file:
+      - ./products-service/.env
+    ports:
+      - "8081:8081"
+    command: node -r "./tracing/manual-instrumentation.js" index.js
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: products
+    ports:
+      - "5432:5432"
+
+  otel-lgtm:
+    image: grafana/otel-lgtm
+    platform: linux/amd64
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "3000:3000"

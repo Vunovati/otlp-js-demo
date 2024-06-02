@@ -17,12 +17,12 @@ spec:
         - name: products-service
           image: products-service-image
           ports:
-            - containerPort: 3001
+            - containerPort: 8081
           env:
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: 'http://jaeger-collector.default.svc.cluster.local:4318'
+            value: 'http://otel-lgtm:4318'
           - name: OTEL_EXPORTER_OTLP_LOGS_ENDPOINT
-            value: 'http://host.docker.internal:4317'
+            value: 'http://otel-lgtm:4317'
           - name: OTEL_EXPORTER_OTLP_LOGS_PROTOCOL
             value: 'grpc'
           - name: OTEL_SERVICE_NAME
@@ -41,8 +41,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 3001
-      targetPort: 3001
+    - port: 8081
+      targetPort: 8081
   selector:
     app: products-service
 

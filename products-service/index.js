@@ -48,7 +48,7 @@ const start = async () => {
   await fastify.register(cors)
   try {
     await fastify.listen({
-      port: 3001,
+      port: 8081,
       host: process.env['API_HOST'] ?? '127.0.0.1'
     })
   } catch (err) {

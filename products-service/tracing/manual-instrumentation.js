@@ -10,6 +10,9 @@ const {
 const { Resource } = require('@opentelemetry/resources')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
 
+// configure the SDK to export telemetry data to the console
+// enable all auto-instrumentations from the meta package
+// const traceExporter = new ConsoleSpanExporter();
 const traceExporter = new OTLPTraceExporter()
 
 const instrumentations = [
@@ -26,10 +29,7 @@ const sdk = new opentelemetry.NodeSDK({
 
 // initialize the SDK and register with the OpenTelemetry API
 // this enables the API to record telemetry
-sdk
-  .start()
-  .then(() => console.log('Manually instrumented tracing initialized'))
-  .catch(error => console.log('Error initializing tracing', error))
+sdk.start()
 
 // gracefully shut down the SDK on process exit
 process.on('SIGTERM', () => {
