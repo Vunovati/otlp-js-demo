@@ -12,6 +12,7 @@ const traceExporter = new OTLPTraceExporter()
 const sdk = new opentelemetry.NodeSDK({
   resource: new Resource(),
   traceExporter,
+  // TODO: missing pino insrumentation?
   instrumentations: [getNodeAutoInstrumentations()]
 })
 
