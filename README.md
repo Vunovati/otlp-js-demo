@@ -9,8 +9,12 @@ The application consists of:
 
 <img width="590" alt="image" src="https://github.com/Vunovati/otlp-js-demo/assets/441333/7dcc7558-0a9a-4111-8713-1a7be1f1aa01">
 
+## Running the project with Docker compose
+1. Install [Docker Desktop](https://docs.docker.com/desktop/) and [Tilt](https://docs.tilt.dev/install.html).
+2. run `docker compose up` from the root of the project to start all the services
+3. setup data in DB with: `cd products-service && npm install && npm run setup-db`
 
-## Running the project
+## Running the project with Tilt (local Kubernetes)
 1. Install [Docker Desktop](https://docs.docker.com/desktop/) and [Tilt](https://docs.tilt.dev/install.html).
 2. [Enable Kubernetes in Docker](https://docs.docker.com/desktop/kubernetes/#install-and-turn-on-kubernetes)
 3. run `tilt up` from the root of the project to start all the services
@@ -22,4 +26,4 @@ The application consists of:
 * Frontend app: [http://localhost:5173/]()
 * Tilt dashboard (k8s): [http://localhost:10350]()
 * Jaeger dashboard (traces): [http://localhost:16686/search]()
-* Loki dashboard: [http://localhost:3200/explore]()
+* Grafana dashboard: [http://localhost:3000/explore]() (user: admin, pass: admin)
