@@ -1,0 +1,43 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  otlp/otel-lgtm:
+    endpoint: otel-lgtm:4317
+    tls:
+      insecure: true
+
+  otlp/jaeger-all-in-one:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+  logging:
+    verbosity: detailed
+  
+processors:
+  batch:
+
+  attributes:
+    actions:
+      - key: test-key
+        value: from attributes processor
+        action: insert
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [attributes]
+      exporters: [otlp/otel-lgtm, otlp/jaeger-all-in-one]
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlp/otel-lgtm]
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlp/otel-lgtm, logging]

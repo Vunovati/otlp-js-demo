@@ -23,7 +23,7 @@ services:
       - ./products-service/.env
     ports:
       - "8081:8081"
-    command: node -r "./tracing/manual-instrumentation.js" index.js
+    command: node -r "./tracing/auto-instrumentation.js" index.js
 
   postgres:
     image: postgres:16
@@ -38,6 +38,23 @@ services:
     image: grafana/otel-lgtm
     platform: linux/amd64
     ports:
-      - "4317:4317"
-      - "4318:4318"
+      #      - "4317:4317"
+      #      - "4318:4318"
       - "3000:3000"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+
+
+  jaeger:
+    image: 'jaegertracing/all-in-one:1.57'
+    ports:
+      - "16686:16686"
+    environment:
+      LOG_LEVEL: debug

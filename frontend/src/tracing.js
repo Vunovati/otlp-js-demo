@@ -43,7 +43,6 @@ const provider = new WebTracerProvider({
 
 const consoleExporter = new ConsoleSpanExporter();
 const otlpExporter = new OTLPTraceExporter({
-  // url: "http://localhost:8010/proxy/v1/traces",  // we use this with npm run proxy-cors-otlp
   url: "/v1/traces",
   headers: {
     foo: "bar",
